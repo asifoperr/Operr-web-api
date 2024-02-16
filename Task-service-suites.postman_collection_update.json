@@ -1,0 +1,3943 @@
+{
+	"info": {
+		"_postman_id": "b24a584f-fcfe-423a-a88c-1fad238fa5d0",
+		"name": "Task-service-suites",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27000501"
+	},
+	"item": [
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"admin_token\",jsonData.data.token);\r",
+									"// pm.globals.set(\"admin_token\",jsonData.token);\r",
+									"pm.environment.set(\"qa2_CompanyId\", jsonData.data.info.companyId);\r",
+									"pm.environment.set(\"user_name\", jsonData.data.info.username);\r",
+									"pm.environment.set(\"userId\", jsonData.data.info.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"pm.response.to.have.status(200); \r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"Successfully logged in\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.token).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.info).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.info.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.info.updatedAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.info.id).to.be.a(\"number\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Origin",
+								"value": "https://qa2.operrwork.com"
+							},
+							{
+								"key": "Pragma",
+								"value": "no-cache"
+							},
+							{
+								"key": "Referer",
+								"value": "https://qa2.operrwork.com/"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-site"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"BobyGQA23\",\r\n    \"password\": \"e10adc3949ba59abbe56e057f20f883e\",\r\n    \"applicationType\": \"Computer\"\r\n}"
+						},
+						"url": "{{qa2}}/company/api/v2/admin/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "create project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"project_id\", jsonData.data.id);\r",
+									"pm.environment.set(\"project_name\",jsonData.data.name);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.userId).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.buckets).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"testing final13142243\",\r\n    \"createdByUsr\": \"{{user_name}}\",\r\n    \"companyId\": {{qa2_CompanyId}},\r\n    \"userId\": {{user_Id}},\r\n    \"background\": \"assets/images/task-management-background/sergey-pesterev-llGiAyYthDw-unsplash.jpeg\",\r\n    \"backgroundType\": \"IMAGE\",\r\n    \"userType\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management"
+					},
+					"response": []
+				},
+				{
+					"name": "get all projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\")\r",
+									"    pm.expect(jsonData.data.content).to.be.a(\"array\")\r",
+									"    pm.expect(jsonData.data.content[0].id).to.be.a(\"number\")\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\":{{user_Id}},\"userType\":0,\"companyId\":{{qa2_CompanyId}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/search"
+					},
+					"response": []
+				},
+				{
+					"name": "get all projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"array\")\r",
+									"    pm.expect(jsonData.data[0].id).to.be.a(\"number\")\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\":{{user_Id}},\"userType\":0,\"companyId\":{{qa2_CompanyId}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/project-list"
+					},
+					"response": []
+				},
+				{
+					"name": "update project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"project_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.userId).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.buckets).to.be.a(\"array\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{project_name}}_updated1\",\r\n    \"createdByUsr\": \"{{user_name}}\" ,\r\n    \"companyId\": {{qa2_CompanyId}},\r\n    \"userId\": {{userId}},\r\n    \"background\": \"assets/images/task-management-background/sergey-pesterev-llGiAyYthDw-unsplash.jpeg\",\r\n    \"backgroundType\": \"IMAGE\",\r\n    \"userType\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/{{project_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "invite project Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.data).to.be.a(\"String\");\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"redirectLink\": \"https://qa2.operrwork.com\",\r\n    \"projectId\": {{project_id}},\r\n    \"companyId\": {{qa2_CompanyId}},\r\n    \"createdByUsrId\": {{user_Id}},\r\n    \"userType\": 0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/invite"
+					},
+					"response": []
+				},
+				{
+					"name": "assign project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"// pm.test(\"Full Response Body Check\", function () {\r",
+									"//     pm.expect(jsonData).to.be.an(\"object\");\r",
+									"//     pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"//     pm.expect(jsonData.data).to.be.a(\"object\")\r",
+									"//     pm.expect(jsonData.data.content).to.be.a(\"array\")\r",
+									"//     pm.expect(jsonData.data.content[0].id).to.be.a(\"number\")\r",
+									"// });\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fromUserId\": 0,\r\n  \"toUserId\": {{user_Id}},\r\n  \"userType\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/assign-to-project"
+					},
+					"response": []
+				},
+				{
+					"name": "get project assigned user details with id Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"\r",
+									"    \r",
+									"    \r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/find-project-user-assign?id={{project_id}}",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"find-project-user-assign"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{project_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create project label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"lavel_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"   \r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    \r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"test1\",\"color\":\"#a39a53\",\"projectId\":{{project_id}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/labels"
+					},
+					"response": []
+				},
+				{
+					"name": "update project label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"lavel_id\", jsonData.data.id);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"   \r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.projectId).to.be.a(\"number\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"aaJ\",\"color\":\"#973cb9\",\"projectId\":{{project_id}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/labels/{{lavel_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "searchAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"companyId\": {{qa2_CompanyId}},\r\n  \"createdByUsr\": \"{{user_name}}\",\r\n  \"ids\": [\r\n    0\r\n  ],\r\n  \"key\": \"string\",\r\n  \"name\": \"string\",\r\n  \"offset\": 0,\r\n  \"page\": 0,\r\n  \"size\": 0,\r\n  \"sortField\": \"string\",\r\n  \"sortOrder\": \"ASC\",\r\n  \"timeZone\": \"string\",\r\n  \"userId\": 0,\r\n  \"userType\": \"ADMIN\",\r\n  \"userTypes\": [\r\n    \"ADMIN\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/searchAll"
+					},
+					"response": []
+				},
+				{
+					"name": "searchAssigned",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.content).to.be.a(\"array\");\r",
+									"     pm.expect(jsonData.data.pageable.pageSize).to.be.a(\"number\");\r",
+									"      pm.expect(jsonData.data.pageable.paged).to.be.a(\"boolean\");\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"companyId\": {{qa2_CompanyId}},\r\n  \"key\": \"string\",\r\n  \"offset\": 0,\r\n  \"page\": 0,\r\n  \"projectId\": 115,\r\n  \"projectIds\": [\r\n    0\r\n  ],\r\n  \"size\": 10,\r\n  \"sortField\": \"createdAt\",\r\n  \"sortOrder\": \"ASC\",\r\n  \"status\": \"ACCEPTED\",\r\n  \"timeZone\": \"string\",\r\n  \"token\": \"string\",\r\n  \"userId\": {{user_Id}},\r\n  \"userType\": \"ADMIN\",\r\n  \"userTypes\": [\r\n    \"ADMIN\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/searchAssigned"
+					},
+					"response": []
+				},
+				{
+					"name": "Accept-invitation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response JSON\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"// Test 1: Check if the status code is 200\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Test 2: Check if the status string is \"OK\"\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// Test 3: Check the type of jsonData.data (expecting it to be an object)\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.data).to.be.an(\"object\");\r",
+									"});\r",
+									"\r",
+									"// Test 4: Check if the response message is 'successfully done'\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"d528edf7e8004167bd8fe5743e21d30b\",\r\n    \"userId\": 2532,\r\n    \"userType\": \"0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://qa2-api.operrwork.com/task-service/api/v2/task/tasks-management/accept-invitation"
+					},
+					"response": []
+				},
+				{
+					"name": "get project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"tasks_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.userId).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.buckets).to.be.a(\"array\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/{{project_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "all user list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"tasks_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"   \r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://qa2-api.operrwork.com/task-service/api/v2/task/tasks-management/all-users",
+							"protocol": "https",
+							"host": [
+								"qa2-api",
+								"operrwork",
+								"com"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"all-users"
+							],
+							"query": [
+								{
+									"key": "projectId",
+									"value": "223",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"tasks_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"   \r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/get-project?id={{project_id}}&userId={{user_Id}}&userType=ADMIN",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"get-project"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{project_id}}"
+								},
+								{
+									"key": "userId",
+									"value": "{{user_Id}}"
+								},
+								{
+									"key": "userType",
+									"value": "ADMIN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.userId).to.be.a(\"number\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/change-user-role?projectUserAssignmentId=56909&role=0",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"change-user-role"
+							],
+							"query": [
+								{
+									"key": "projectUserAssignmentId",
+									"value": "56909"
+								},
+								{
+									"key": "role",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clearCache",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/clear-cache/{{project_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "find user detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/find-user-details?requestType=1&userId={{user_Id}}&userType=ADMIN",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"find-user-details"
+							],
+							"query": [
+								{
+									"key": "requestType",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "{{user_Id}}"
+								},
+								{
+									"key": "userType",
+									"value": "ADMIN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all project dashboard for DropDown",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"  \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/drop-down/{{qa2_CompanyId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "clearCache Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/clear-cache/{{project_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bucket",
+			"item": [
+				{
+					"name": "create bucket",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"bucket_id\", jsonData.data.id);\r",
+									"pm.environment.set(\"bucket_name\", jsonData.data.name);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{project_name}}_bucket12345\",\r\n    \"projectId\": {{project_id}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets"
+					},
+					"response": []
+				},
+				{
+					"name": "unassign multiple",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/user-unassign?ids=237",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"user-unassign"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "237"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update tasks order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"bucket_id\", jsonData.data.id);\r",
+									"pm.environment.set(\"bucket_name\", jsonData.data.name);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{project_name}}_bucket_update1\",\r\n    \"projectId\": {{project_id}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets"
+					},
+					"response": []
+				},
+				{
+					"name": "get bucket",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"bucket_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/{{bucket_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "update bucket",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"bucket_id\", jsonData.data.id);\r",
+									"pm.environment.set(\"bucket_name\", jsonData.data.name);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{bucket_name}}_update\",\r\n    \"projectId\": {{project_id}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/{{bucket_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "update hide/UnHide bucket",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"bucket_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{bucket_name}}\",\r\n    \"projectId\": {{project_id}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/{{bucket_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "update bucket order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"ids\":[395,398,397,396],\"updatedBy\":\"Boby G\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/{{bucket_id}}/bucket_orders"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "create task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"task_Id\", jsonData.data.id);\r",
+									"pm.environment.set(\"task_Name\",jsonData.data.name);\r",
+									"pm.environment.set(\"internalId\",jsonData.data.internalId);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.userId).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"{{project_name}}_{{bucket_name}}_tasks\",\"content\":\"\",\"status\":\"\",\"bucketId\":{{bucket_id}},\"userType\":0,\"userId\":{{user_Id}},\"projectId\":{{project_id}},\"position\":0}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "get project assigned user details with id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"// pm.environment.set(\"tasks_Id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/find-project-user-assign-by-taskid?taskId={{task_Id}}",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"find-project-user-assign-by-taskid"
+							],
+							"query": [
+								{
+									"key": "taskId",
+									"value": "{{task_Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\":{{user_Id}},\"projectId\":{{project_id}},\"companyId\":{{qa2_CompanyId}},\"taskId\":{{task_Id}},\"userType\":0,\"bucketId\":{{bucket_id}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/assign"
+					},
+					"response": []
+				},
+				{
+					"name": "update task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"task_Id\", jsonData.data.id);\r",
+									"pm.environment.set(\"task_Name\",jsonData.data.name);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"{{task_Name}}_update\",\"content\":\" \",\"status\":\"\",\"deadline\":null,\"bucketId\":{{bucket_id}},\"background\":null,\"assignedUsers\":[],\"viewMode\":null,\"accessibleUsers\":null,\"position\":2,\"projectId\":{{project_id}},\"lastModifiedBy\":\"Boby G\",\"watchCard\":[],\"startDate\":null,\"ticketType\":null}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}//task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"Check_ID\", jsonData.data.id);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.name).to.be.a(\"String\");\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"{{task_Name}} add new\",\"taskId\":{{task_Id}},\"projectId\":{{project_id}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/check-list"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"bucket_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.name).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"createdAt\":1697958552000,\"updatedAt\":1697958577000,\"createdByUsr\":null,\"lastModifiedBy\":null,\"id\":100,\"name\":\"gUpdate\",\"projectId\":{{project_id}},\"taskId\":{{task_Id}},\"selectedHide\":null,\"checked\":false,\"taskCheckListItems\":[],\"assignedUserId\":null,\"percentage\":0}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/check-list/{{Check_ID}}"
+					},
+					"response": []
+				},
+				{
+					"name": "dropdown Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"array\")\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"taskId\":{{task_Id}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/check-list/dropdown"
+					},
+					"response": []
+				},
+				{
+					"name": "create comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"comment_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// // {\"content\":\"<p>new comment for test 11 </p>\",\"type\":\"TEXT\",\"createdByUsr\":\"Boby G\",\"userId\":2532,\"projectId\":{{project_id}},\"bucketId\":{{bucket_id}},\"ticketLink\":\"https://qa2.operrwork.com/#/app/tm/MjM4?t=2-task11\",\"taskId\":{{task_id}},\"documentId\":null}\r\n\r\n\r\n// // {\"content\":\"<p>hi</p>\",\"type\":\"TEXT\",\"createdByUsr\":\"Boby G\",\"userId\":2532,\"createdAt\":\"2023-10-22T03:56:44.641Z\",\"projectId\":238,\"ticketLink\":\"https://qa2.operrwork.com/#/app/tm/MjM4?t=2-task11\",\"documentId\":null}\r\n\r\n// {\"content\":\"<p>hello11</p>\",\"type\":\"TEXT\",\"createdByUsr\":\"Boby G\",\"userId\":2532,\"projectId\":238,\"ticketLink\":\"https://qa2.operrwork.com/#/app/tm/MjM4?t=2-task11\",\"documentId\":null}\r\n\r\n{\"content\":\"<p>hellooooo11111</p>\",\"type\":\"TEXT\",\"createdByUsr\":\"Boby G\",\"userId\":{{user_Id}},\"createdAt\":\"2023-10-22T04:04:54.996Z\",\"projectId\":{{project_id}},\"ticketLink\":\"https://qa2.operrwork.com/#/app/tm/MjM4?t=2-task11\",\"documentId\":null}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "update comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"tasks_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"createdAt\":1697980340821,\"updatedAt\":1697980340821,\"createdByUsr\":\"Boby G\",\"lastModifiedBy\":null,\"id\":{{comment_id}},\"content\":\"<p>asjvgjssasxsg5e</p>\",\"taskId\":{{task_Id}},\"userId\":{{user_Id}},\"userType\":null,\"type\":\"TEXT\",\"projectId\":{{project_id}},\"label\":null,\"ticketLink\":null,\"documentId\":null,\"userInfo\":{\"id\":{{user_Id}},\"name\":\"Boby G\",\"email\":\"rthernozier@operr.com\",\"userName\":\"{{user_name}}\",\"userType\":\"ADMIN\",\"role\":\"COMPANY_ADMIN\",\"projectUserAssignmentId\":15,\"userRoleLevel\":3,\"projectId\":null,\"avatar\":null,\"displayName\":\"BG\",\"color\":\"#DAF7A6\"}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}/comments/{{comment_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "watch card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"watch_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"bucketId\":{{bucket_id}},\"projectId\":{{project_id}},\"projectUserAssignmentId\":28,\"taskId\":{{task_Id}},\"userId\":{{user_Id}},\"userType\":\"ADMIN\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management//buckets/tasks/watch-card"
+					},
+					"response": []
+				},
+				{
+					"name": "un watch card Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management//buckets/tasks/un-watch-card/{{watch_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "assign label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}/labels/assign/{{lavel_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "unassign label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}//task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}/labels/unassign/{{lavel_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "get comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"array\");\r",
+									"    pm.expect(jsonData.data[0].createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data[0].createdByUsr).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data[0].userType).to.be.a(\"null\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}//task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "delete comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\":{{user_Id}},\"userName\":\"Boby G\",\"fileType\":\"TEXT\",\"fileName\":\"\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}/comments/{{comment_id}}/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "update invoice number label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"     pm.expect(jsonData.data.data).to.be.a(\"boolean\");\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": \"string\",\r\n  \"contractorId\": 0,\r\n  \"contractorName\": \"yrt\",\r\n  \"invoiceLink\": \"string\",\r\n  \"invoiceNumber\": \"string\",\r\n  \"outstandingBalance\": \"string\",\r\n  \"taskId\": [\r\n    {{task_Id}}\r\n  ],\r\n  \"username\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/invoice-number-label"
+					},
+					"response": []
+				},
+				{
+					"name": "duplicate task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"watch_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"  \r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"{{task_Name}}_dupli\",\"bucketId\":{{bucket_id}},\"userId\":{{user_Id}},\"userType\":\"ADMIN\",\"keepComments\": true}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}/duplicate"
+					},
+					"response": []
+				},
+				{
+					"name": "crm-task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"   \r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"  \r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bucketId\": {{bucket_id}},\r\n  \"bucketIds\": [\r\n    0\r\n  ],\r\n  \"fromDate\": \"2023-10-29T04:41:31.172Z\",\r\n  \"ids\": [\r\n    0\r\n  ],\r\n  \"includingProjectId\": true,\r\n  \"internalId\": 2,\r\n  \"key\": \"string\",\r\n  \"name\": \"string\",\r\n  \"offset\": 0,\r\n  \"page\": 0,\r\n  \"size\": 9999,\r\n  \"sortField\": \"createdAt\",\r\n  \"sortOrder\": \"ASC\",\r\n  \"timeZone\": \"string\",\r\n  \"toDate\": \"2023-10-29T04:41:31.172Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/search"
+					},
+					"response": []
+				},
+				{
+					"name": "remove invoice number label Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.data).to.be.a(\"boolean\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": \"string\",\r\n  \"contractorId\": 0,\r\n  \"contractorName\": \"string\",\r\n  \"invoiceLink\": \"string\",\r\n  \"invoiceNumber\": \"string\",\r\n  \"outstandingBalance\": \"string\",\r\n  \"taskId\": [\r\n    0\r\n  ],\r\n  \"username\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/remove-number-label"
+					},
+					"response": []
+				},
+				{
+					"name": "get task by internal id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"   \r",
+									"    pm.expect(jsonData.data.lastModifiedBy).to.be.a(\"string\");\r",
+									"    \r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/find-task-name?internalId={{internalId}}&bucketId={{bucket_id}}&taskName={{task_Name}}",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"buckets",
+								"tasks",
+								"find-task-name"
+							],
+							"query": [
+								{
+									"key": "internalId",
+									"value": "{{internalId}}"
+								},
+								{
+									"key": "bucketId",
+									"value": "{{bucket_id}}"
+								},
+								{
+									"key": "taskName",
+									"value": "{{task_Name}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update internal id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"   \r",
+									"    pm.expect(jsonData.data.lastModifiedBy).to.be.a(\"string\");\r",
+									"    \r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}/update_internal_id/{{internalId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "get project assigned user details with id Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"tasks_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/find-project-user-assign-by-taskid?taskId={{task_Id}}",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"find-project-user-assign-by-taskid"
+							],
+							"query": [
+								{
+									"key": "taskId",
+									"value": "{{task_Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save task check list item Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"createdAt\":1697975467000,\"updatedAt\":1697975467000,\"createdByUsr\":null,\"lastModifiedBy\":null,\"id\":131,\"name\":\"dfjghYAFGsfsiua\",\"selectItem\":false,\"taskCheckListId\":107}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/check-list/save-task-list-item"
+					},
+					"response": []
+				},
+				{
+					"name": "get task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"watch_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.assignedUsers).to.be.a(\"array\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\")\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/task-details/{{task_Id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "get task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data.createdAt).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.createdByUsr).to.be.a(\"null\");\r",
+									"   \r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "get comment in project Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}//task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}/comments-project"
+					},
+					"response": []
+				},
+				{
+					"name": "get all duplicated internal id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"watch_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"array\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/duplicated_internal_id"
+					},
+					"response": []
+				},
+				{
+					"name": "get task details with help internal id and board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/find-by-internal-and-board-id?boardId={{bucket_id}}&internalId={{internalId}}",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"buckets",
+								"tasks",
+								"find-by-internal-and-board-id"
+							],
+							"query": [
+								{
+									"key": "boardId",
+									"value": "{{bucket_id}}"
+								},
+								{
+									"key": "internalId",
+									"value": "{{internalId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get task details with help internal id and board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"array\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/find-task-according-to-user?userId={{user_Id}}&userType=ADMIN",
+							"host": [
+								"{{qa2}}"
+							],
+							"path": [
+								"task-service",
+								"api",
+								"v2",
+								"task",
+								"tasks-management",
+								"buckets",
+								"tasks",
+								"find-task-according-to-user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{user_Id}}"
+								},
+								{
+									"key": "userType",
+									"value": "ADMIN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dropdown",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"array\")\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{task_Id}},\r\n  \"key\": \"string\",\r\n  \"offset\": 0,\r\n  \"page\": 0,\r\n  \"size\": 0,\r\n  \"sortField\": \"string\",\r\n  \"sortOrder\": \"ASC\",\r\n  \"taskId\": 0,\r\n  \"timeZone\": \"string\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/check-list/dropdown"
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"Check_ID\", jsonData.data.id);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.data.name).to.be.a(\"String\");\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"{{task_Name}} add new\",\"taskId\":{{task_Id}},\"projectId\":{{project_id}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/check-list"
+					},
+					"response": []
+				},
+				{
+					"name": "save task check list item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"save_check\", jsonData.data.id)\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"createdAt\":1697975467000,\"updatedAt\":1697975467000,\"createdByUsr\":null,\"lastModifiedBy\":null,\"id\":{{task_Id}},\"name\":\"dfjghYAFGsfsiua\",\"selectItem\":false,\"taskCheckListId\":{{Check_ID}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/check-list/save-task-list-item"
+					},
+					"response": []
+				},
+				{
+					"name": "get all task history Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.data).to.be.a(\"object\");\r",
+									"    pm.expect(jsonData.data.content).to.be.a(\"array\")\r",
+									"    pm.expect(jsonData.data.content[0].id).to.be.a(\"number\")\r",
+									"    pm.expect(jsonData.data.content[0].createdByUsr).to.be.a(\"null\")\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"page\":0,\"size\":9999,\"companyId\":{{qa2_CompanyId}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/task-history/search"
+					},
+					"response": []
+				},
+				{
+					"name": "unassign project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\":{{user_Id}},\"projectId\":{{project_id}},\"companyId\":{{qa2_CompanyId}},\"taskId\":{{task_Id}},\"userType\":0}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/unassign"
+					},
+					"response": []
+				},
+				{
+					"name": "unassign task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\":{{user_Id}},\"projectId\":{{project_id}},\"companyId\":{{qa2_CompanyId}},\"taskId\":{{task_Id}},\"userType\":0}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/unassign"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/check-list/delete-task-list-item/{{save_check}}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/check-list/{{Check_ID}}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"watch_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"number\");\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"createdByUser\":\"BobyGQA23\",\"id\":{{task_Id}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/delete-task"
+					},
+					"response": []
+				},
+				{
+					"name": "delete task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.a(\"String\");\r",
+									"\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/tasks/{{task_Id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete bucket",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"tasks_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"number\");\r",
+									"   \r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/buckets/{{bucket_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "unassign project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"\r",
+									"   \r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/unassign/{{user_Id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"number\");\r",
+									"   \r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/labels/{{lavel_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"tasks_id\", jsonData.data.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status String is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Full Response Body Check\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.data).to.be.a(\"number\");\r",
+									"   \r",
+									"    \r",
+									"});\r",
+									"pm.test(\"Response message is 'successfully done'\", function () {\r",
+									"    pm.expect(jsonData.message).to.equal(\"successfully done\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{qa2}}/task-service/api/v2/task/tasks-management/{{project_id}}"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
